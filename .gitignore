@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Test / coverage caches
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Type / lint caches
+.mypy_cache/
+.ruff_cache/
+
+# PyInstaller / build outputs
+build/
+dist/
+*.spec
+
+# Packaging metadata
+*.egg-info/
+
+# User-generated data and exports
+*.xlsx
+*.xls
+*.csv
+*.log
+
+# Operational image inputs
+*.jpg
+*.jpeg
+*.png
+*.bmp
+*.tif
+*.tiff
+*.webp
+*.heic
+*.heif
+!docs/**/*.png
+!docs/**/*.jpg
+!assets/**/*.png
+!assets/**/*.jpg
+
+# Environment / credentials
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini
+

@@ -1,0 +1,56 @@
+THIRD-PARTY SOFTWARE NOTICES
+============================
+
+This application includes or is distributed with the open-source components
+listed below. Copyrights remain with their respective owners. The complete
+license files available from the installed distributions are copied by
+build.ps1 into the THIRD_PARTY_LICENSES directory beside each release.
+
+1. ZXing-C++ / zxing-cpp 3.1.1
+   Copyright (c) the ZXing-C++ contributors.
+   License: Apache License 2.0.
+   Project: https://github.com/zxing-cpp/zxing-cpp
+
+2. Pillow 12.3.0
+   PIL: Copyright (c) 1997-2011 Secret Labs AB and
+        Copyright (c) 1995-2011 Fredrik Lundh and contributors.
+   Pillow: Copyright (c) 2010 Jeffrey A. Clark and contributors.
+   License: MIT-CMU. Pillow wheels also contain image codec libraries under
+   their respective licenses; see the copied Pillow license file.
+   Project: https://python-pillow.github.io/
+
+3. openpyxl 3.1.5
+   Copyright (c) 2010 openpyxl.
+   License: MIT.
+   Project: https://openpyxl.readthedocs.io/
+
+4. et-xmlfile
+   Runtime dependency of openpyxl.
+   License: MIT; portions also carry the Python Software Foundation License.
+   Project: https://foss.heptapod.net/openpyxl/et_xmlfile
+
+5. CPython and the Python standard library
+   Copyright (c) Python Software Foundation and other contributors.
+   License: Python Software Foundation License Version 2 and component-specific
+   notices contained in the CPython license file.
+   Project: https://www.python.org/
+
+6. Tcl/Tk
+   Included by CPython/Tkinter and redistributed in the frozen application.
+   License: permissive BSD-style Tcl/Tk license terms.
+   Project: https://www.tcl.tk/
+
+7. PyInstaller 6.22.0
+   Copyright (c) PyInstaller Development Team.
+   License: GPL-2.0-or-later with the PyInstaller bootloader exception.
+   The exception permits applications produced with the unmodified bootloader
+   to be distributed under the application's chosen license, subject to the
+   licenses of all bundled dependencies.
+   Project: https://pyinstaller.org/
+
+NO WARRANTY
+-----------
+
+The third-party components are provided under their respective licenses and
+without warranties except where a license expressly states otherwise. This
+notice is informational and is not legal advice.
