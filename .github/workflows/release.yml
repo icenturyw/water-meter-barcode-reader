@@ -37,21 +37,28 @@ jobs:
         run: powershell -ExecutionPolicy Bypass -File .\build.ps1 -SkipDependencyInstall
 
       - name: Prepare release assets
-        shell: powershell
+        shell: pwsh
         run: |
           $ErrorActionPreference = "Stop"
           $tag = "${env:GITHUB_REF_NAME}"
-          $appName = "水表表号批量识别工具"
           $assetDir = Join-Path $PWD "release-assets"
           New-Item -ItemType Directory -Path $assetDir -Force | Out-Null
 
-          $onefile = Join-Path $PWD "dist\onefile\$appName.exe"
+          $onefile = Get-ChildItem -LiteralPath (Join-Path $PWD "dist\onefile") -Filter "*.exe" -File |
+            Select-Object -First 1
+          if (-not $onefile) {
+            throw "No onefile executable was produced under dist\onefile."
+          }
           $onefileTarget = Join-Path $assetDir "water-meter-barcode-reader-$tag-windows-x64.exe"
-          Copy-Item -LiteralPath $onefile -Destination $onefileTarget -Force
+          Copy-Item -LiteralPath $onefile.FullName -Destination $onefileTarget -Force
 
-          $onedir = Join-Path $PWD "dist\onedir\$appName"
+          $onedir = Get-ChildItem -LiteralPath (Join-Path $PWD "dist\onedir") -Directory |
+            Select-Object -First 1
+          if (-not $onedir) {
+            throw "No onedir application directory was produced under dist\onedir."
+          }
           $onedirZip = Join-Path $assetDir "water-meter-barcode-reader-$tag-windows-x64.zip"
-          Compress-Archive -LiteralPath $onedir -DestinationPath $onedirZip -CompressionLevel Optimal -Force
+          Compress-Archive -LiteralPath $onedir.FullName -DestinationPath $onedirZip -CompressionLevel Optimal -Force
 
           Copy-Item -LiteralPath "THIRD_PARTY_NOTICES.txt" -Destination $assetDir -Force
 
