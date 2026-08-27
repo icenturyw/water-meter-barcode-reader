@@ -1,0 +1,67 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Create virtual environment
+        shell: powershell
+        run: |
+          python -m venv .venv
+          .\.venv\Scripts\python.exe -m pip install --upgrade pip
+          .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+
+      - name: Run tests
+        shell: powershell
+        run: .\.venv\Scripts\python.exe -m unittest discover -s tests -v
+
+      - name: Build Windows releases
+        shell: powershell
+        run: powershell -ExecutionPolicy Bypass -File .\build.ps1 -SkipDependencyInstall
+
+      - name: Prepare release assets
+        shell: powershell
+        run: |
+          $ErrorActionPreference = "Stop"
+          $tag = "${env:GITHUB_REF_NAME}"
+          $appName = "水表表号批量识别工具"
+          $assetDir = Join-Path $PWD "release-assets"
+          New-Item -ItemType Directory -Path $assetDir -Force | Out-Null
+
+          $onefile = Join-Path $PWD "dist\onefile\$appName.exe"
+          $onefileTarget = Join-Path $assetDir "water-meter-barcode-reader-$tag-windows-x64.exe"
+          Copy-Item -LiteralPath $onefile -Destination $onefileTarget -Force
+
+          $onedir = Join-Path $PWD "dist\onedir\$appName"
+          $onedirZip = Join-Path $assetDir "water-meter-barcode-reader-$tag-windows-x64.zip"
+          Compress-Archive -LiteralPath $onedir -DestinationPath $onedirZip -CompressionLevel Optimal -Force
+
+          Copy-Item -LiteralPath "THIRD_PARTY_NOTICES.txt" -Destination $assetDir -Force
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Water Meter Barcode Reader ${{ github.ref_name }}
+          body_path: CHANGELOG.md
+          generate_release_notes: true
+          files: |
+            release-assets/water-meter-barcode-reader-${{ github.ref_name }}-windows-x64.exe
+            release-assets/water-meter-barcode-reader-${{ github.ref_name }}-windows-x64.zip
+            release-assets/THIRD_PARTY_NOTICES.txt
