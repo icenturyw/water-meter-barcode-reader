@@ -1,5 +1,9 @@
 # Water Meter Barcode Reader
 
+[![CI](https://github.com/icenturyw/water-meter-barcode-reader/actions/workflows/ci.yml/badge.svg)](https://github.com/icenturyw/water-meter-barcode-reader/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Platform](https://img.shields.io/badge/Platform-Windows-0078D4?logo=windows&logoColor=white)](https://www.microsoft.com/windows)
+
 > 水表表号批量识别工具：从手机拍摄的水表照片中批量解码条码表号，集中复核异常，并导出 Excel / CSV。
 
 这是一个面向 Windows 的本地离线桌面工具。程序使用 ZXing-C++ 解码照片中的条码，通过“纯数字、固定长度、固定前缀”等规则筛选表号，并把未识别、多码、规则不符和重复记录集中交给人工复核。
